@@ -2,91 +2,129 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Air Board - Tailwind</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Mediapipe & Camera Utils -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-    <style>
-      .key.hovered {
-        @apply bg-gray-400;
-      }
-      .key.glow {
-        @apply bg-green-500 text-white shadow-lg;
-      }
-    </style>
+    <title>Gesture Keyboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
-  <body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
-    <h1 class="text-3xl font-bold mb-4 text-blue-600">
-      ✋ Virtual Air Keyboard
-    </h1>
-
-    <!-- Camera Video + Overlay -->
-    <div class="relative">
-      <video
-        id="input_video"
-        autoplay
-        muted
-        playsinline
-        class="rounded-lg shadow-md"
-      ></video>
-      <canvas
-        id="output_canvas"
-        class="absolute top-0 left-0 rounded-lg"
-      ></canvas>
+  <body>
+    <div class="layer">
+      <video id="input_video" autoplay muted playsinline></video>
+      <canvas id="output_canvas"></canvas>
     </div>
 
-    <!-- Typed Text -->
-    <div
-      id="typedText"
-      class="mt-6 w-[640px] min-h-[60px] p-4 bg-white border-2 border-gray-300 rounded-lg text-left text-lg shadow-sm"
-    >
-      Initializing...
+    <div class="keyboard" id="keyboard">
+      <!-- Row 1 -->
+      <div class="row">
+        <div class="key">1</div>
+        <div class="key">2</div>
+        <div class="key">3</div>
+        <div class="key">4</div>
+        <div class="key">5</div>
+        <div class="key">6</div>
+        <div class="key">7</div>
+        <div class="key">8</div>
+        <div class="key">9</div>
+        <div class="key">0</div>
+        <div class="key backspace">⌫</div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="row">
+        <div class="key tab">Tab</div>
+        <div class="key">Q</div>
+        <div class="key">W</div>
+        <div class="key">E</div>
+        <div class="key">R</div>
+        <div class="key">T</div>
+        <div class="key">Y</div>
+        <div class="key">U</div>
+        <div class="key">I</div>
+        <div class="key">O</div>
+        <div class="key">P</div>
+        <div class="key">[</div>
+        <div class="key">]</div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="row">
+        <div class="key caps">Caps</div>
+        <div class="key">A</div>
+        <div class="key">S</div>
+        <div class="key">D</div>
+        <div class="key">F</div>
+        <div class="key">G</div>
+        <div class="key">H</div>
+        <div class="key">J</div>
+        <div class="key">K</div>
+        <div class="key">L</div>
+        <div class="key">;</div>
+        <div class="key">'</div>
+        <div class="key enter">↵</div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="row">
+        <div class="key shift">Shift</div>
+        <div class="key">Z</div>
+        <div class="key">X</div>
+        <div class="key">C</div>
+        <div class="key">V</div>
+        <div class="key">B</div>
+        <div class="key">N</div>
+        <div class="key">M</div>
+        <div class="key">,</div>
+        <div class="key">.</div>
+        <div class="key">/</div>
+        <div class="key shift">Shift</div>
+      </div>
+
+      <!-- Row 5 -->
+      <div class="row">
+        <div class="key ctrl">Ctrl</div>
+        <div class="key alt">Alt</div>
+        <div class="key space">Space</div>
+        <div class="key emoji">😊</div>
+        <div class="key fn">Fn</div>
+        <div class="key backspace"><i class="fas fa-times"></i></div>
+      </div>
     </div>
 
-    <!-- Virtual Keyboard -->
-    <div class="keyboard mt-8 space-y-3">
-      <div class="flex justify-center space-x-2">
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">Q</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">W</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">E</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">R</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">T</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">Y</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">U</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">I</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">O</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">P</div>
-      </div>
-      <div class="flex justify-center space-x-2">
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">A</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">S</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">D</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">F</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">G</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">H</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">J</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">K</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">L</div>
-      </div>
-      <div class="flex justify-center space-x-2">
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">Z</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">X</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">C</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">V</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">B</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">N</div>
-        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">M</div>
-      </div>
-      <div class="flex justify-center space-x-2">
-        <div class="key px-6 py-2 bg-gray-200 rounded-lg shadow text-lg">
-          Space
-        </div>
-        <div class="key px-6 py-2 bg-gray-200 rounded-lg shadow text-lg">⌫</div>
-        <div class="key px-6 py-2 bg-gray-200 rounded-lg shadow text-lg">↵</div>
-      </div>
-    </div>
+    <div class="text-preview" id="typedText"></div>
 
-    <!-- <script src="index.js"></script> -->
+    <!-- Load MediaPipe -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module">
+      window.addEventListener("load", () => {
+        if (window.Hands && window.Camera) {
+          import("./index.js").catch((error) => {
+            console.error("Error loading script:", error);
+            document.getElementById("typedText").textContent =
+              "Error loading application!";
+          });
+        } else {
+          console.error("MediaPipe libraries not loaded!");
+          document.getElementById("typedText").textContent =
+            "Error: Required libraries not loaded!";
+        }
+      });
+    </script>
   </body>
 </html>
