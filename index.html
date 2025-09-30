@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Air Board - Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Mediapipe & Camera Utils -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+    <h1 class="text-3xl font-bold mb-4 text-blue-600">
+      ✋ Virtual Air Keyboard
+    </h1>
+
+    <!-- Camera Video + Overlay -->
+    <div class="relative">
+      <video
+        id="input_video"
+        autoplay
+        muted
+        playsinline
+        class="rounded-lg shadow-md"
+      ></video>
+      <canvas
+        id="output_canvas"
+        class="absolute top-0 left-0 rounded-lg"
+      ></canvas>
+    </div>
+
+    <!-- Typed Text -->
+    <div
+      id="typedText"
+      class="mt-6 w-[640px] min-h-[60px] p-4 bg-white border-2 border-gray-300 rounded-lg text-left text-lg shadow-sm"
+    >
+      Initializing...
+    </div>
+
+    <!-- Virtual Keyboard -->
+    <div class="keyboard mt-8 space-y-3">
+      <div class="flex justify-center space-x-2">
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">Q</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">W</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">E</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">R</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">T</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">Y</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">U</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">I</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">O</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">P</div>
+      </div>
+      <div class="flex justify-center space-x-2">
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">A</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">S</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">D</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">F</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">G</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">H</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">J</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">K</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">L</div>
+      </div>
+      <div class="flex justify-center space-x-2">
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">Z</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">X</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">C</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">V</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">B</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">N</div>
+        <div class="key px-4 py-2 bg-gray-200 rounded-lg shadow text-lg">M</div>
+      </div>
+      <div class="flex justify-center space-x-2">
+        <div class="key px-6 py-2 bg-gray-200 rounded-lg shadow text-lg">
+          Space
+        </div>
+        <div class="key px-6 py-2 bg-gray-200 rounded-lg shadow text-lg">⌫</div>
+        <div class="key px-6 py-2 bg-gray-200 rounded-lg shadow text-lg">↵</div>
+      </div>
+    </div>
+
+    <!-- <script src="index.js"></script> -->
+  </body>
+</html>
