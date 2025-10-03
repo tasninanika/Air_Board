@@ -1,4 +1,4 @@
-# AirBoard – Type in the Air with Your Fingers!
+# AirBoard – Type in the Air with Your Fingers!✨
 A virtual keyboard powered by hand gestures using MediaPipe Hands and Javascript.
 Users can type by hovering their index fingers over keys, with smooth animations, delay handling, and a futuristic UI.
 
